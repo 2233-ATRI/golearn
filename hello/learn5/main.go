@@ -1,9 +1,9 @@
 package main
 
-import (
-	"../lib"
-)
+//import mylib "hello/learn5/lib"
+import _ "hello/learn5/lib"
 
 func main() {
-	lib.Libtest()
+	//lib.Libtest()
+	//mylib.Libtest()
 }
