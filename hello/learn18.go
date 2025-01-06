@@ -15,11 +15,11 @@ func myfunc(arg interface{}) {
 	}
 }
 
-type Book struct {
-	auth string
-}
+//type Book struct {
+//	auth string
+//}
 
-func main() {
-	book := Book{"go"}
-	myfunc(book.auth)
-}
+//func main() {
+//	book := Book{"go"}
+//	myfunc(book.auth)
+//}
