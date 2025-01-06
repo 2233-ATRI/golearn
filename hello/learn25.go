@@ -22,4 +22,12 @@ func main() {
 		fmt.Println(string(jsonstr))
 		//fmt.Printf("%s\n", jsonstr)//等价
 	}
+	my_movie := Movie{}
+	err = json.Unmarshal(jsonstr, &my_movie)
+	if err != nil {
+		fmt.Println("error is ", err)
+
+	} else {
+		fmt.Printf("%v\n", my_movie)
+	}
 }
