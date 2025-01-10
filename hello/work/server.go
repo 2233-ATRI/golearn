@@ -48,6 +48,25 @@ func (this *Server) Handler(conn net.Conn) {
 	this.Onlinemap[user.Name] = user
 	this.maplock.Unlock()
 	this.Btoadcast(user, "shangxian")
+
+	go func() {
+		buf := make([]byte, 1024)
+		for {
+			n, err := conn.Read(buf)
+			if err != nil {
+				fmt.Println("err is ", err)
+				return
+			}
+			if n == 0 {
+				fmt.Println("xiaxian")
+				return
+			}
+			msg := string(buf[:n-1])
+
+			this.Btoadcast(user, msg)
+		}
+	}()
+
 	select {}
 }
 
