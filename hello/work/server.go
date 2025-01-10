@@ -3,23 +3,52 @@ package main
 import (
 	"fmt"
 	"net"
+	"sync"
 )
 
 type Server struct {
 	Ip   string
 	Port int
+
+	Onlinemap map[string]*User
+	maplock   sync.RWMutex
+	Message   chan string
 }
 
 func Newserver(ip string, port int) *Server {
 	Server := &Server{
-		Ip:   ip,
-		Port: port,
+		Ip:        ip,
+		Port:      port,
+		Onlinemap: make(map[string]*User),
+		Message:   make(chan string),
 	}
 	return Server
 }
 
+func (this *Server) listernmassage() {
+	for {
+		msg := <-this.Message
+		this.maplock.Lock()
+		for _, client := range this.Onlinemap {
+			client.C <- msg
+		}
+		this.maplock.Unlock()
+	}
+}
+
+func (this *Server) Btoadcast(user *User, msg string) {
+	sendmsg := "[" + user.Age + "]" + user.Name + ":" + msg
+	this.Message <- sendmsg
+}
+
 func (this *Server) Handler(conn net.Conn) {
-	fmt.Fprintf(conn, "hello world")
+	//fmt.Fprintf(conn, "hello world")
+	user := NewUser(conn)
+	this.maplock.Lock()
+	this.Onlinemap[user.Name] = user
+	this.maplock.Unlock()
+	this.Btoadcast(user, "shangxian")
+	select {}
 }
 
 func (this *Server) Start() {
@@ -30,7 +59,7 @@ func (this *Server) Start() {
 	} else {
 		defer lister.Close()
 	}
-
+	go this.listernmassage()
 	for {
 		conn, err := lister.Accept()
 		if err != nil {
