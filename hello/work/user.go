@@ -46,5 +46,5 @@ func (this *User) Offline() {
 }
 
 func (this *User) Domassage() {
-	this.Server.Btoadcast(User, "msg")
+	//this.Server.Btoadcast(User, "msg")
 }
