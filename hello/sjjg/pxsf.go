@@ -46,6 +46,27 @@ func selection(ac []int) {
 	}
 }
 
+func insertsort(list []int) {
+	n := len(list)
+	if n <= 1 {
+		return
+	}
+	var a = 0 //中间变量，得到一个数之后就开始对比，
+	for i := 1; i < n; i++ {
+		a = list[i]
+		for j := 0; j < i; j++ {
+			if list[j] > a {
+				var q = list[j]
+				var s = i - j
+				for ij := j; ij < s; ij++ {
+					list[ij] = list[ij+1]
+				}
+				list[j] = q
+			}
+		}
+	}
+}
+
 func main() {
 
 }
