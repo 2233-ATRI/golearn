@@ -26,6 +26,38 @@ func inorder(root *TREEnode) { //中序
 	inorder(root.rigth)
 }
 
+func postorder(root *TREEnode) { //后序
+	if root == nil {
+		return
+	}
+	postorder(root.left)
+	postorder(root.rigth)
+	fmt.Println(root.data)
+}
+
+func ccorder(root *TREEnode) { //层次遍历的广度优先
+	if root == nil {
+		return
+	}
+	que := new(linkqueue) //创建队列
+	que.add(root)
+	for {
+		if que.len > 0 {
+			ele := que.pop()
+			fmt.Println(ele.data)
+			if ele.left != nil {
+				que.add(ele.left)
+			}
+			if ele.right != nil {
+				que.add(ele.right)
+			}
+			if ele.right == nil && ele.lift == nil {
+				break
+			}
+		}
+	}
+}
+
 func main() {
 
 }
