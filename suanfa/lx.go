@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func mac1(x int) {
 	x = 100
@@ -37,16 +39,32 @@ func main() {
 	b = make(map[string]int, 10)
 	b["a"] = 10
 	b["b"] = 20
+	b["c"] = 30
 	fmt.Println(b)
 	//程序定义一个int变量num的地址并打印
 	//	将num的地址赋给指针ptr，并通过ptr去修改num的值
+	v, ok := b["c"]
+	if ok {
+		fmt.Println(v)
+	} else {
+		fmt.Println("kong")
+	}
+	for k, _ := range b {
+		fmt.Println(k)
+	}
+	fmt.Println()
 
-	var num int
-	var prt *int = &num
+	delete(b, "c")
+	for k, _ := range b {
+		fmt.Println(k)
+	}
 
-	fmt.Println(prt)
-	num = 10
-	*prt = 20
-	fmt.Println(num)
+	//var num int
+	//var prt *int = &num
+	//
+	//fmt.Println(prt)
+	//num = 10
+	//*prt = 20
+	//fmt.Println(num)
 
 }
