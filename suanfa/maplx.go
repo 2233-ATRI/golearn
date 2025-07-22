@@ -2,10 +2,10 @@ package main
 
 import "fmt"
 
-type str struct {
-	name, city string
-	age        int
-}
+//type str struct {
+//	name, city string
+//	age        int
+//}
 
 func main() {
 	// 正确的声明方式：map的map
