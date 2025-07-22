@@ -31,5 +31,22 @@ func main() {
 	var a *int
 	a = new(int)
 	*a = 10
-	fmt.Println(*a)
+
+	fmt.Println(*a) //new怼数值有用处，make更多是用在slice等操作
+	var b map[string]int
+	b = make(map[string]int, 10)
+	b["a"] = 10
+	b["b"] = 20
+	fmt.Println(b)
+	//程序定义一个int变量num的地址并打印
+	//	将num的地址赋给指针ptr，并通过ptr去修改num的值
+
+	var num int
+	var prt *int = &num
+
+	fmt.Println(prt)
+	num = 10
+	*prt = 20
+	fmt.Println(num)
+
 }
